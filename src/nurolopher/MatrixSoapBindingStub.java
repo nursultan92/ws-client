@@ -30,7 +30,7 @@ public class MatrixSoapBindingStub extends org.apache.axis.client.Stub implement
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "B"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        oper.setReturnClass(java.lang.String.class);
+        //oper.setReturnClass(Integer.class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "multiplyReturn"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -89,7 +89,7 @@ public class MatrixSoapBindingStub extends org.apache.axis.client.Stub implement
         }
     }
 
-    public java.lang.String multiply(int[][] a, int[][] b) throws java.rmi.RemoteException {
+    public int[][] multiply(int[][] a, int[][] b) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -110,9 +110,9 @@ public class MatrixSoapBindingStub extends org.apache.axis.client.Stub implement
         else {
             extractAttachments(_call);
             try {
-                return (java.lang.String) _resp;
+                return (int[][]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (java.lang.String) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
+                return (int[][]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.String.class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

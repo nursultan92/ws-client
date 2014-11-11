@@ -2,18 +2,30 @@
 <wsdl:definitions targetNamespace="http://nurolopher" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://nurolopher" xmlns:intf="http://nurolopher" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.4
 Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://nurolopher" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOfArrayOf_xsd_int">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[][]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
 
    <wsdl:message name="multiplyResponse">
 
-      <wsdl:part name="multiplyReturn" type="xsd:string"/>
+      <wsdl:part name="multiplyReturn" type="impl:ArrayOfArrayOf_xsd_int"/>
 
    </wsdl:message>
 
    <wsdl:message name="multiplyRequest">
 
-      <wsdl:part name="A" type="xsd:string"/>
+      <wsdl:part name="A" type="impl:ArrayOfArrayOf_xsd_int"/>
 
-      <wsdl:part name="B" type="xsd:string"/>
+      <wsdl:part name="B" type="impl:ArrayOfArrayOf_xsd_int"/>
 
    </wsdl:message>
 
