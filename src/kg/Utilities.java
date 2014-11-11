@@ -25,4 +25,12 @@ public class Utilities {
         }
         return true;
     }
+
+    public static int[] stringArrayToIntArray(String[] strings){
+        int[] a = new int[strings.length];
+        for(int index = 0;index<strings.length;index++){
+            a[index] = Integer.parseInt(strings[index]);
+        }
+        return a;
+    }
 }
