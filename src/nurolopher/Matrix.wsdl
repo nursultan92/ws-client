@@ -27,11 +27,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:part name="B" type="impl:ArrayOfArrayOf_xsd_int"/>
 
+      <wsdl:part name="start" type="xsd:int"/>
+
+      <wsdl:part name="end" type="xsd:int"/>
+
    </wsdl:message>
 
    <wsdl:portType name="Matrix">
 
-      <wsdl:operation name="multiply" parameterOrder="A B">
+      <wsdl:operation name="multiply" parameterOrder="A B start end">
 
          <wsdl:input message="impl:multiplyRequest" name="multiplyRequest"/>
 

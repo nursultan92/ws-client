@@ -8,5 +8,5 @@
 package nurolopher;
 
 public interface Matrix_PortType extends java.rmi.Remote {
-    public int[][] multiply(int[][] a, int[][] b) throws java.rmi.RemoteException;
+    public int[][] multiply(int[][] a, int[][] b, int start, int end) throws java.rmi.RemoteException;
 }

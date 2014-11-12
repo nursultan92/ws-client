@@ -8,6 +8,7 @@ import javax.xml.rpc.ServiceException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -46,11 +47,10 @@ public class MainForm extends JFrame {
         });
         btnMultiply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MatrixServiceLocator locator = new MatrixServiceLocator();
+
                 int[][] a = new int[matrixSize][matrixSize];
                 int[][] b = new int[matrixSize][matrixSize];
                 try {
-                    Matrix_PortType service = locator.getMatrix();
                     List<String> listA = Files.readAllLines(Paths.get("matrix_a.txt"), Charset.forName("UTF-8"));
                     List<String> listB = Files.readAllLines(Paths.get("matrix_b.txt"), Charset.forName("UTF-8"));
                     int index = 0;
@@ -61,12 +61,17 @@ public class MainForm extends JFrame {
                     for (String line : listB) {
                         b[index++] = Utilities.stringArrayToIntArray(line.split(" "));
                     }
-                    int[][] c = service.multiply(a, b);
-                    System.out.println(Arrays.deepToString(c));
-                } catch (ServiceException e1) {
-                    System.err.println("Service Exception");
+
+                    int[][]c = Utilities.parallelMult(a,b,1);
+
+                    PrintWriter outputWriter = new PrintWriter("matrix_c.txt", "UTF-8");
+                    for (index = 0; index < matrixSize; index++) {
+                        outputWriter.println(Arrays.toString(c[index]));
+                    }
+                    outputWriter.close();
+                    //System.out.println(Arrays.deepToString(c));
                 } catch (IOException e1) {
-                    System.err.println("Catch Exception");
+                    System.err.println(e1.getMessage());
                 }
             }
         });
