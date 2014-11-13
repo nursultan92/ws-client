@@ -5,6 +5,7 @@ import nurolopher.Matrix_PortType;
 
 import javax.swing.*;
 import javax.xml.rpc.ServiceException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -21,7 +22,9 @@ public class MainForm extends JFrame {
     private JButton okButton;
     private JTextField txtMaxValue;
     private JButton btnMultiply;
-    private JLabel lblTimer;
+    private JLabel lblNotification;
+    private JTextField txtNumServers;
+    private JTextArea txtArea;
     private int matrixSize;
 
     public MainForm() {
@@ -38,6 +41,7 @@ public class MainForm extends JFrame {
                         matrixGeneratorThread.start();
                         matrixGeneratorThread.join();
                         btnMultiply.setEnabled(true);
+                        lblNotification.setText("A and B matrices has been written to files!");
                         System.out.println("Random matrices has been generated and written to files!");
                     } catch (InterruptedException e1) {
                         System.err.println("Interrupted exception");
@@ -61,15 +65,16 @@ public class MainForm extends JFrame {
                     for (String line : listB) {
                         b[index++] = Utilities.stringArrayToIntArray(line.split(" "));
                     }
-
-                    int[][]c = Utilities.parallelMult(a,b,1);
-
+                    long startTime = System.currentTimeMillis();
+                    int[][] c = Utilities.parallelMult(a, b, Integer.parseInt(txtNumServers.getText()));
+                    long endTime = System.currentTimeMillis();
+                    txtArea.append(txtMatrixSize.getText() + "," + txtMaxValue.getText() + "," + txtNumServers.getText() + "," + (endTime - startTime) + "\n");
                     PrintWriter outputWriter = new PrintWriter("matrix_c.txt", "UTF-8");
                     for (index = 0; index < matrixSize; index++) {
                         outputWriter.println(Arrays.toString(c[index]));
                     }
                     outputWriter.close();
-                    //System.out.println(Arrays.deepToString(c));
+                    lblNotification.setText("Matrix multiplication completed!");
                 } catch (IOException e1) {
                     System.err.println(e1.getMessage());
                 }

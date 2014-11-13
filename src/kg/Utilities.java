@@ -47,11 +47,20 @@ public class Utilities {
         if (part < 1) {
             part = 1;
         }
+        int index = 1;
         for (int i = 0; i < A.length; i += part) {
-            System.err.println(i);
-            Callable<int[][]> worker = new LineMultiplier(A, B, i, i + part,"localhost");
+
+
+            String endpointAddress = "http://192.168.56.10" + index + ":8080/matrix_war/services/nurolopher/Matrix";
+            if(threadNumber==0){
+                endpointAddress = "http://localhost:8080/matrix_war/services/nurolopher/Matrix";
+            }
+            System.out.println(endpointAddress);
+            Callable<int[][]> worker = new LineMultiplier(A, B, i, i + part, endpointAddress);
             Future<int[][]> submit = executor.submit(worker);
             list.add(submit);
+            index++;
+            if(index==3)index=1;
         }
 
         // now retrieve the result
@@ -65,8 +74,9 @@ public class Utilities {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+            }
+            catch (ExecutionException e) {
+                System.out.println(e.getCause());
             }
             start += part;
         }

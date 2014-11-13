@@ -29,7 +29,7 @@ public class LineMultiplier implements Callable<int[][]> {
     public int[][] call() throws RemoteException, ServiceException {
 
         MatrixServiceLocator locator = new MatrixServiceLocator();
-        //locator.setEndpointAddress("Matrix", endpointAddress);
+        locator.setEndpointAddress("Matrix", endpointAddress);
         Matrix_PortType service = null;
         try {
             service = locator.getMatrix();
